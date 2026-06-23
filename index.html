@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Дашборд управляющего — Книголюб</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f7fa;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .section {
+            background: white;
+            padding: 30px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .section h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+        
+        .section h3 {
+            color: #764ba2;
+            margin: 20px 0 10px 0;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        th {
+            background: #667eea;
+            color: white;
+            font-weight: 600;
+        }
+        
+        tr:hover {
+            background: #f5f7fa;
+        }
+        
+        .status {
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.9em;
+            font-weight: 600;
+        }
+        
+        .status-done { background: #d4edda; color: #155724; }
+        .status-progress { background: #fff3cd; color: #856404; }
+        .status-planned { background: #cce5ff; color: #004085; }
+        .status-refused { background: #f8d7da; color: #721c24; }
+        
+        .task-list {
+            list-style: none;
+        }
+        
+        .task-list li {
+            padding: 10px;
+            margin: 5px 0;
+            background: #f5f7fa;
+            border-left: 4px solid #667eea;
+            border-radius: 5px;
+        }
+        
+        .script-box {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #764ba2;
+        }
+        
+        .script-box strong {
+            color: #764ba2;
+        }
+        
+        .idea-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .idea-card h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .feedback-card {
+            background: #fff3cd;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border-left: 4px solid #ffc107;
+        }
+        
+        .update-info {
+            text-align: right;
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 20px;
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .contact-card {
+            background: #f5f7fa;
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid #667eea;
+        }
+        
+        .contact-card h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .kp-box {
+            background: #e8f4f8;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 2px solid #17a2b8;
+        }
+        
+        .kp-box h3 {
+            color: #17a2b8;
+        }
+        
+        @media (max-width: 768px) {
+            header h1 { font-size: 1.8em; }
+            .container { padding: 10px; }
+            .section { padding: 20px; }
+            table { font-size: 0.9em; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📊 Дашборд управляющего</h1>
+            <p>Книголюб — Вологда</p>
+            <p style="margin-top: 10px; font-size: 1em;">Максим Симанов | Управляющий</p>
+        </header>
+        
+        <div class="update-info">
+             Последнее обновление: <strong>23 июня 2026</strong>
+        </div>
+
+        <!-- ПЛАН НА НЕДЕЛЮ -->
+        <div class="section">
+            <h2>📅 План на неделю (23-29 июня 2026)</h2>
+            
+            <h3>Вторник (23.06)</h3>
+            <ul class="task-list">
+                <li>✅ Изучил процессы (Ксения → Ангелина → Маша → удаленщицы → Мария → полки → упаковка → Юрий)</li>
+                <li>✅ Поговорил с сотрудниками</li>
+                <li>✅ Изучил Сводную Книголюб (продажи)</li>
+                <li>✅ Изучить Выкуп_показатели (закуп)</li>
+                <li>🔄 Найти курьера на выходные? </li>
+            </ul>
+            
+            <h3>Среда (24.06)</h3>
+            <ul class="task-list">
+                <li>📋 Утренняя летучка (9:00 в ВК)</li>
+                <li> Переговорить с Ксенией по московским складам, взять контакты</li>
+                <li>📋 Начать поиск издательств (составить список, обзвонить)</li>
+              <li>📋 Составить предложения для отправки через вк/почту другие средства </li>
+                <li>📋 В течении дня Проверять бота (ошибки, ТЗ для разработчика, правки)</li>
+              <li>📋 Будет создана таблица с возможными поставщиками, в ней будут фиксироваться все данные с цифрами за день</li>
+            </ul>
+            
+            <h3>Четверг (25.06)</h3>
+            <ul class="task-list">
+                <li>📋 Продолжить поиск издательств</li>
+                <li>📋 Связаться с ломбардами </li>
+              <li>📋 Провести анализ других каналов</li>
+                <li>📋 Контроль удаленщиц (сколько карточек делают, скорость)</li>
+            </ul>
+            
+            <h3>Пятница (26.06)</h3>
+            <ul class="task-list">
+                <li>📋 Риэлторы (переезды) — список, обзвонить </li>
+                <li>📋 Клининговые компании — список , обзвонить</li>
+                <li>📋 Авито Москва/СПб — мониторинг</li>
+            </ul>
+            
+            <h3>Субботв (27.06)</h3>
+            <ul class="task-list">
+                <li>📋 Анализ результатов поиска поставщиков</li>
+                <li>📋 Корректировка плана на следующую неделю</li>
+                <li>📋 </li>
+            </ul>
+            
+            
+            <h3>Понедельник (29.06)</h3>
+            <ul class="task-list">
+                <li>📋 Получить контакты Яндекс.Маркет</li>
+                <li>📋 Изучить требования Я.Маркета</li>
+            </ul>
+        </div>
+
+        <!-- КОМАНДА -->
+        <div class="section">
+            <h2>👥 Команда — кто за что отвечает</h2>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Сотрудник</th>
+                        <th>Основные задачи</th>
+                        <th>Статус</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Ксения</strong></td>
+                        <td>Прием звонков Авито, обзвон, оценка книг по фото, передача Юрию</td>
+                        <td><span class="status status-done">В работе</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Ангелина</strong></td>
+                        <td>Проценка книг, поиск цен на маркетплейсах, наклейка стикеров, ответы на отзывы Ozon, работа с акциями и скидками</td>
+                        <td><span class="status status-done">В работе</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Маша</strong></td>
+                        <td>Фотографирование книг (4 фото), замеры (длина, ширина, толщина, вес), отправка удаленщицам</td>
+                        <td><span class="status status-done">В работе</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Мария </strong></td>
+                        <td>Проверка карточек от удаленщиц, внесение в таблицу, присвоение артикулов и полок, загрузка в МойСклад и Ozon/WB</td>
+                        <td><span class="status status-done">В работе</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Диана</strong></td>
+                        <td>Упаковка заказов, сборка, раскладка по полкам, инвентаризация</td>
+                        <td><span class="status status-progress">В отпуске</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Юрий</strong></td>
+                        <td>Забор книг от клиентов, отвоз на ПВЗ, забор возвратов</td>
+                        <td><span class="status status-done">В работе</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Удаленщицы (9 чел.)</strong></td>
+                        <td>Создание карточек товара, присвоение артикулов</td>
+                        <td><span class="status status-progress">Нужен контроль, мотивация</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- ПОИСК ПОСТАВЩИКОВ -->
+        <div class="section">
+            <h2> Поиск поставщиков</h2>
+            
+            <h3>Издательства</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Название</th>
+                        <th>Контактное лицо</th>
+                        <th>Телефон</th>
+                        <th>Статус</th>
+                        <th>Комментарий</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Издательство "_____"</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td><span class="status status-planned">Запланировано</span></td>
+                        <td>Найти контакты отдела продаж остатков</td>
+                    </tr>
+                    <tr>
+                        <td>Издательство "______"</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td><span class="status status-planned">Запланировано</span></td>
+                        <td>Найти контакты</td>
+                    </tr>
+                    <tr>
+                        <td>Издательство "_______"</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td><span class="status status-planned">Запланировано</span></td>
+                        <td>Найти контакты</td>
+                    </tr>          
+                </tbody>
+            </table>
+            
+            <h3>Сортировочные склады (Москва)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Название</th>
+                        <th>Контактное лицо</th>
+                        <th>Телефон</th>
+                        <th>Статус</th>
+                        <th>Комментарий</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Склад №1 (контакты от Ксении)</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td><span class="status status-planned">Запланировано</span></td>
+                        <td>Получить контакты от Ксении</td>
+                    </tr>
+                    <tr>
+                        <td>Склад №2</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td><span class="status status-planned">Запланировано</span></td>
+                        <td>Найти через Авито/2ГИС</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h3>Ломбарды</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Название</th>
+                        <th>Адрес</th>
+                        <th>Телефон</th>
+                        <th>Статус</th>
+                        <th>Комментарий</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Ломбард _______ </td>
+                        <td>адрес __________ </td>
+                        <td>-</td>
+                        <td><span class="status status-planned">Запланировано</span></td>
+                        <td>Уточнить, принимают ли книги</td>
+                    </tr>
+                    <tr>
+                        <td>Ломбард "_____________ "</td>
+                        <td>адрес ___________ </td>
+                        <td>-</td>
+                        <td><span class="status status-planned">Запланировано</span></td>
+                        <td>Уточнить условия</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h3>Риэлторы (переезды)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Агентство</th>
+                        <th>Контактное лицо</th>
+                        <th>Телефон</th>
+                        <th>Статус</th>
+                        <th>Комментарий</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>АН "Этажи"</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td><span class="status status-planned">Запланировано</span></td>
+                        <td>Предложить выкуп книг при переездах</td>
+                    </tr>
+                    <tr>
+                        <td>АН "Миэль"</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td><span class="status status-planned">Запланировано</span></td>
+                        <td>Предложить выкуп книг</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h3>Клининговые компании</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Название</th>
+                        <th>Телефон</th>
+                        <th>Статус</th>
+                        <th>Комментарий</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Клининг "Мажор дом (Москва)"</td>
+                        <td>-</td>
+                        <td><span class="status status-planned">Запланировано</span></td>
+                        <td>Предложить выкуп книг после чистки квартир</td>
+                    </tr>
+                    <tr>
+                        <td>Клининг "Брусника (Москва)"</td>
+                        <td>-</td>
+                        <td><span class="status status-planned">Запланировано</span></td>
+                        <td>Обсудить условия</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- СКРИПТЫ РАЗГОВОРОВ -->
+        <div class="section">
+            <h2>📞 Скрипты разговоров</h2>
+            
+            <h3>Для издательств</h3>
+            <div class="script-box">
+                <p><strong>Здравствуйте!</strong> Меня зовут Максим, компания "Книголюб". Мы выкупаем книги у организаций и частных лиц.</p>
+                
+                <p><strong>Цель звонка:</strong> Мы заинтересованы в выкупе остатков вашей продукции — неликвид, книги с небольшими дефектами, устаревшие издания, которые занимают место на складах.</p>
+                
+                <p><strong>Что предлагаем:</strong></p>
+                <ul>
+                    <li>Выкупаем партиями от 100 книг</li>
+                    <li>Самовывоз с вашего склада (наш курьер)</li>
+                    <li>Оплата наличными или на расчетный счет в день вывоза</li>
+                    <li>Готовы рассмотреть любые объемы — от 100 до 10 000 книг</li>
+                </ul>
+                
+                <p><strong>Вопросы:</strong></p>
+                <ul>
+                    <li>Есть ли у вас остатки, которые нужно реализовать?</li>
+                    <li>Какие условия вы обычно предлагаете оптовым покупателям?</li>
+                    <li>Есть ли возможность выслать фото? Можем ли мы приехать на склад для осмотра?</li>
+                </ul>
+                
+                <p><strong>Если отказ:</strong> Понимаю. Могу я оставить наши контакты на случай, если ситуация изменится? Мы всегда готовы рассмотреть предложения.</p>
+            </div>
+            
+            <h3>Для сортировочных складов</h3>
+            <div class="script-box">
+                <p><strong>Здравствуйте!</strong>Меня зовут Максим, компания "Книголюб". Мы выкупаем книги у организаций и частных лиц.</p>
+                
+                <p><strong>Цель:</strong> Нас интересует выкуп книг с ваших складов — некондиция, возвраты, неликвид.</p>
+                
+                <p><strong>Что предлагаем:</strong></p>
+                <ul>
+                    <li>Выкупаем партиями от 100 книг</li>
+                    <li>Самовывоз нашим транспортом</li>
+                    <li>Быстрая оплата</li>
+                    <li>Готовы к долгосрочному сотрудничеству</li>
+                </ul>
+                
+                <p><strong>Вопросы:</strong></p>
+                <ul>
+                    <li>Какие объемы книг у вас обычно накапливаются?</li>
+                    <li>Как вы обычно реализуете неликвид?</li>
+                    <li>Можете отправить фото? / Можем ли мы приехать на осмотр?</li>
+                </ul>
+            </div>
+            
+            <h3>Для ломбардов</h3>
+            <div class="script-box">
+                <p><strong>Здравствуйте!</strong> Меня зовут Максим, компания "Книголюб". Мы выкупаем книги у организаций и частных лиц.</p>
+                
+                <p><strong>Предложение:</strong> Если у вас накапливаются книги, которые не удается продать, мы готовы их выкупить партиями от 50 книг.</p>
+                
+                <p><strong>Условия:</strong></p>
+                <ul>
+                    <li>Приезжаем, оцениваем, забираем</li>
+                    <li>Оплата сразу</li>
+                    <li>Работаем по договору</li>
+                </ul>
+            </div>
+            
+            <h3>Для риэлторов</h3>
+            <div class="script-box">
+                <p><strong>Здравствуйте!</strong> Меня зовут Максим, компания "Книголюб". Мы помогаем людям быстро продать книги при переезде.</p>
+                
+                <p><strong>Предложение для ваших клиентов:</strong> Если при переезде у клиентов остаются книги, мы можем приехать, оценить и выкупить их. Это удобно — не нужно самим выставлять на Авито.</p>
+                
+                <p><strong>Что предлагаем:</strong></p>
+                <ul>
+                    <li>Выезд в день обращения</li>
+                    <li>Оценка на месте</li>
+                    <li>Оплата сразу наличными</li>
+                    <li>Сами забираем книги</li>
+                </ul>
+                
+                <p><strong>Вопрос:</strong> Можем ли мы оставить наши визитки в вашем офисе для клиентов?</p>
+            </div>
+        </div>
+
+        <!-- КОММЕРЧЕСКОЕ ПРЕДЛОЖЕНИЕ -->
+        <div class="section">
+            <h2>📧 Коммерческое предложение</h2>
+            
+            <div class="kp-box">
+                <h3>Коммерческое предложение о выкупе книг</h3>
+                
+                <p><strong>Уважаемые партнеры!</strong></p>
+                
+                <p>Компания <strong>"Книголюб"</strong> (г. Вологда) предлагает вам сотрудничество по реализации книжной продукции.</p>
+                
+                <p><strong>Мы выкупаем:</strong></p>
+                <ul>
+                    <li>Остатки издательств (неликвид, устаревшие издания)</li>
+                    <li>Книги с сортировочных складов (возвраты, некондиция)</li>
+                    <li>Книжные коллекции от частных лиц и организаций</li>
+                    <li>Книги от ломбардов и комиссионных магазинов</li>
+                </ul>
+                
+                <p><strong>Наши преимущества:</strong></p>
+                <ul>
+                    <li>✅ Выкуп партиями от 50 книг</li>
+                    <li>✅ Самовывоз нашим транспортом</li>
+                    <li>✅ Быстрая оплата (наличные/безнал)</li>
+                    <li>✅ Работаем по договору</li>
+                    <li>✅ Долгосрочное сотрудничество</li>
+                </ul>
+                
+                <p><strong>Как мы работаем:</strong></p>
+                <ol>
+                    <li>Вы связываетесь с нами (телефон/почта)</li>
+                    <li>Мы приезжаем на осмотр (бесплатно)</li>
+                    <li>Оцениваем книги на месте</li>
+                    <li>Заключаем договор</li>
+                    <li>Забираем книги и оплачиваем</li>
+                </ol>
+                
+                <p><strong>Контакты:</strong></p>
+                <ul>
+                    <li>📞 Телефон: +7 (995) 788-66-68</li>
+                    <li>📧 Email: antidolgi24@gmail.com</li>
+                    <li>📍 Адрес: г. Вологда, Машиностроительная ул., д. 19</li>
+                </ul>
+                
+                <p>Будем рады сотрудничеству!</p>
+                
+                <p><strong>С уважением,<br>Максим Симанов<br>Управляющий "Книголюб"</strong></p>
+            </div>
+        </div>
+
+        <!-- ИДЕИ И ПРЕДЛОЖЕНИЯ -->
+        <div class="section">
+            <h2> Идеи, предложения, мысли, задачи </h2>
+            
+            <div class="idea-card">
+                <h4>📅 23.06.2026 — Новые каналы закупки</h4>
+                <p><strong>Планы:</strong> Расширить поиск поставщиков:</p>
+                <ul>
+                    <li>Издательства (остатки, неликвид)</li>
+                    <li>Сортировочные склады (Москва и другие регионы)</li>
+                    <li>Ломбарды</li>
+                    <li>Риэлторы (переезды)</li>
+                    <li>Клининговые компании (чистка квартир)</li>
+                    <li>Другие источники</li>
+                </ul>
+                <p><strong>Ожидаемый результат:</strong> Увеличение объема закупа до 8 000-10 000 книг/мес.</p>
+                <p><strong>Статус:</strong> 🔄 В работе</p>
+            </div>
+        </div>
+
+        <!-- ОБРАТНАЯ СВЯЗЬ ОТ СОТРУДНИКОВ -->
+        <div class="section">
+            <h2>📝 Обратная связь от сотрудников (что их тормозит)</h2>
+            
+            <div class="feedback-card">
+                <h4> Ксения</h4>
+                <p><strong>Что тормозит:</strong> (будет заполнено после получения ответа)</p>
+                <p><strong>Предложения:</strong> (будет заполнено)</p>
+            </div>
+            
+            <div class="feedback-card">
+                <h4>👤 Ангелина</h4>
+                <p><strong>Что тормозит:</strong> (будет заполнено после получения ответа)</p>
+                <p><strong>Предложения:</strong> (будет заполнено)</p>
+            </div>
+            
+            <div class="feedback-card">
+                <h4> Маша </h4>
+                <p><strong>Что тормозит:</strong> (будет заполнено после получения ответа)</p>
+                <p><strong>Предложения:</strong> (будет заполнено)</p>
+            </div>
+            
+            <div class="feedback-card">
+                <h4>👤 Мария </h4>
+                <p><strong>Что тормозит:</strong> (будет заполнено после получения ответа)</p>
+                <p><strong>Предложения:</strong> (будет заполнено)</p>
+            </div>
+            
+            <div class="feedback-card">
+                <h4> Юрий</h4>
+                <p><strong>Что тормозит:</strong> (будет заполнено после получения ответа)</p>
+                <p><strong>Предложения:</strong> (будет заполнено)</p>
+            </div>
+        </div>
+
+        <footer style="text-align: center; padding: 20px; color: #666;">
+            <p> Дашборд управляющего "Книголюб" | Максим Симанов | 2026</p>
+            <p>Обновлено: 23 июня 2026</p>
+            <a href="https://studio817.ru/banan" style="color:#38bdf8;">Разработка приложений и создание сайтов Студия 817 Вологда </a> 
+        </footer>
+    </div>
+</body>
+</html>
