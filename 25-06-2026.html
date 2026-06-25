@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Дашборд управляющего — Книголюб | 25 июня 2026</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f7fa;
+        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        header h1 { font-size: 2.5em; margin-bottom: 10px; }
+        .date-badge {
+            background: rgba(255,255,255,0.2);
+            padding: 10px 20px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        .section {
+            background: white;
+            padding: 30px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .section h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+        .section h3 { color: #764ba2; margin: 20px 0 10px 0; }
+        .status {
+            padding: 5px 15px;
+            border-radius: 5px;
+            font-size: 0.9em;
+            font-weight: 600;
+            display: inline-block;
+        }
+        .status-done { background: #d4edda; color: #155724; }
+        .status-progress { background: #fff3cd; color: #856404; }
+        .status-planned { background: #cce5ff; color: #004085; }
+        .status-decision { background: #f8d7da; color: #721c24; }
+        .task-list { list-style: none; }
+        .task-list li {
+            padding: 12px;
+            margin: 8px 0;
+            background: #f5f7fa;
+            border-left: 4px solid #667eea;
+            border-radius: 5px;
+        }
+        .priority-high { border-left-color: #dc3545; }
+        .priority-medium { border-left-color: #ffc107; }
+        .priority-low { border-left-color: #28a745; }
+        .calc-box {
+            background: #e8f4f8;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border: 2px solid #17a2b8;
+        }
+        .calc-box h4 { color: #17a2b8; margin-bottom: 15px; }
+        .idea-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+        .idea-card h4 { color: #667eea; margin-bottom: 10px; }
+        .decision-needed {
+            background: #fff3cd;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #ffc107;
+        }
+        .decision-needed h4 { color: #856404; margin-bottom: 10px; }
+        .alert-box {
+            background: #f8d7da;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #dc3545;
+        }
+        .alert-box h4 { color: #721c24; margin-bottom: 10px; }
+        .contact-box {
+            background: #d1ecf1;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            border-left: 4px solid #17a2b8;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background: #667eea;
+            color: white;
+            font-weight: 600;
+        }
+        tr:hover { background: #f5f7fa; }
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .nav-btn {
+            padding: 10px 20px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+        .nav-btn:hover { background: #764ba2; }
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            margin-top: 30px;
+        }
+        @media (max-width: 768px) {
+            header h1 { font-size: 1.8em; }
+            .container { padding: 10px; }
+            .section { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📊 Дашборд управляющего</h1>
+            <p>Книголюб — Вологда</p>
+            <div class="date-badge">
+                <strong>25 июня 2026 (Четверг)</strong>
+            </div>
+            <p style="margin-top: 10px; font-size: 1em;">Максим Симанов | Управляющий</p>
+        </header>
+        
+        <div class="nav-buttons">
+            <a href="index.html" class="nav-btn">📅 23 июня</a>
+            <a href="24-06-2026.html" class="nav-btn">📅 24 июня</a>
+            <a href="#" class="nav-btn" style="background: #764ba2;">📅 25 июня (сегодня)</a>
+            <a href="26-06-2026.html" class="nav-btn">📅 26 июня (завтра)</a>
+        </div>
+
+        <!-- 🔴 КРИТИЧЕСКИЕ ДАТЫ -->
+        <div class="section">
+            <h2>⚠️ КРИТИЧЕСКИЕ ДАТЫ (ИЮЛЬ)</h2>
+            
+            <div class="alert-box">
+                <h4>🚨 1 ИЮЛЯ — КРИТИЧНЫЕ ИЗМЕНЕНИЯ:</h4>
+                <ul>
+                    <li><strong>Юрий уходит</strong> — решить кто будет возить книги (в т.ч. по выходным)</li>
+                    <li><strong>Маша уходит в отпуск на 2 недели</strong> — перераспределить задачи</li>
+                    <li><strong>Отключить Авито-продвижение</strong> и симку по Ярославлю (после привоза книг от Никиты)</li>
+                    <li><strong>Старт месяца снижения расходов</strong> — июль</li>
+                </ul>
+            </div>
+            
+            <div class="calc-box">
+                <h4>💰 БЮДЖЕТ ИЮЛЯ:</h4>
+                <ul>
+                    <li>На покупку книг: <strong>100 000 - 150 000 ₽</strong></li>
+                    <li>План 5000 книг — ЗАБЫВАЕМ</li>
+                    <li>Акцент на: имеющиеся книги + логистика из других городов</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- ✅ СДЕЛАНО СЕГОДНЯ (25.06) -->
+        <div class="section">
+            <h2>✅ СДЕЛАНО СЕГОДНЯ (25 июня)</h2>
+            
+            <h3>📦 ЛОГИСТИКА</h3>
+            <ul class="task-list">
+                <li class="priority-high">
+                    <strong>Челябинск — РЕШЕНО ✅</strong>
+                    <ul>
+                        <li>Груз передан водителю</li>
+                        <li>Телефон водителя: <strong>8-981-448-66-02</strong></li>
+                        <li>Продавец Мария получила оплату: <strong>25 000 ₽</strong></li>
+                        <li>Статус: ждем груз в Вологде</li>
+                    </ul>
+                </li>
+                <li class="priority-high">
+                    <strong>Ульяновск — В ПРОЦЕССЕ 🔄</strong>
+                    <ul>
+                        <li>Заказ размещен: 522 экз., <strong>30 520 ₽</strong></li>
+                        <li>12 коробок (30×35×40 см), общий вес ~130-140 кг</li>
+                        <li>Адрес: г. Ульяновск, ул. Локомотивная, 9</li>
+                        <li>Контакт продавца: Алексей, <strong>8-908-477-64-00</strong> (перевод на карту)</li>
+                        <li><strong>ВАЖНО:</strong> Заказ НЕ оплачен! Оплата при заборе</li>
+                        <li>Ищем машину (утром 26.06 проверю статус)</li>
+                    </ul>
+                </li>
+            </ul>
+            
+            <h3>🤖 БОТ (Андрей)</h3>
+            <ul class="task-list">
+                <li class="priority-medium">
+                    <strong>Контроль работы бота</strong>
+                    <ul>
+                        <li>Бот стал работать лучше ✅</li>
+                        <li>Часть ошибок Андрей исправил вечером</li>
+                        <li>Часть еще в работе</li>
+                        <li>Завтра продолжим тестирование</li>
+                    </ul>
+                </li>
+            </ul>
+            
+            <h3>💡 СОГЛАСОВАННЫЕ ИДЕИ</h3>
+            <ul class="task-list">
+                <li class="priority-medium">
+                    <strong>Калькулятор для ТК ✅ согласовано</strong>
+                    <ul>
+                        <li>Завтра продумать формулы и все моменты</li>
+                    </ul>
+                </li>
+                <li class="priority-medium">
+                    <strong>Визитка при упаковке ✅ согласовано</strong>
+                    <ul>
+                        <li>Завтра продумать текст</li>
+                    </ul>
+                </li>
+            </ul>
+            
+            <h3>📋 НЕ СДЕЛАНО (переносится)</h3>
+            <ul class="task-list">
+                <li class="priority-low">
+                    <strong>Обзвон издательств</strong> — пока откладываем (фокус на логистике и имеющихся книгах)
+                </li>
+                <li class="priority-low">
+                    <strong>Ломбарды, риэлторы, клининговые компании</strong> — на будущее
+                </li>
+            </ul>
+        </div>
+
+        <!-- 📥 НОВЫЕ ВВОДНЫЕ ОТ ДЕНИСА -->
+        <div class="section">
+            <h2>📥 НОВЫЕ ВВОДНЫЕ ОТ ДЕНИСА</h2>
+            
+            <div class="task-list">
+                <li class="priority-high">
+                    <strong>📦 Логистика и возвраты</strong>
+                    <ul>
+                        <li>Выяснить: куда приходят возвраты, где забирать (курьер или сами)</li>
+                        <li>На июль выстроить работу по забору книг по адресам (1-2 адреса другими водителями)</li>
+                    </ul>
+                </li>
+                <li class="priority-high">
+                    <strong>🤖 Бот от Александра (Москва)</strong>
+                    <ul>
+                        <li>Карточки по <strong>20 ₽</strong> за штуку</li>
+                        <li>Договориться на тестовую партию <strong>100 штук</strong></li>
+                        <li>Telegram: <strong>@AleksBuild</strong> (контакты дал Денис)</li>
+                    </ul>
+                </li>
+                <li class="priority-high">
+                    <strong>🚚 Курьер Андрей</strong>
+                    <ul>
+                        <li>Провести беседу (Ксения написала, ждем ответа)</li>
+                        <li>В идеале: сборка заказов и передача курьеру ближе к <strong>19:00</strong> для отправки Ozon/WB</li>
+                        <li>Продумать и проговорить с курьером</li>
+                    </ul>
+                </li>
+                <li class="priority-medium">
+                    <strong>📊 Ксения — новые задачи</strong>
+                    <ul>
+                        <li>Поиск книг в других городах</li>
+                        <li>Логистика</li>
+                        <li>Текущие задачи</li>
+                    </ul>
+                </li>
+                <li class="priority-medium">
+                    <strong>🚚 Изучить тарифы АТИ.су</strong>
+                </li>
+                <li class="priority-medium">
+                    <strong>📸 Ангелина</strong>
+                    <ul>
+                        <li>Временно переходит на фото к Маше в помощь</li>
+                    </ul>
+                </li>
+                <li class="priority-medium">
+                    <strong>📞 Связаться с Инной (отчеты)</strong>
+                    <ul>
+                        <li>Telegram: <strong>@luk_nn</strong></li>
+                        <li>12 пунктов отчета (см. ниже)</li>
+                    </ul>
+                </li>
+                <li class="priority-low">
+                    <strong>💨 Продать вытяжку</strong> (не срочно)
+                </li>
+            </div>
+            
+            <div class="calc-box">
+                <h4>📋 12 ПУНКТОВ ОТЧЕТА ОТ ИННЫ:</h4>
+                <ol>
+                    <li>Сводка по отзывам — на что жалуются, как исправить</li>
+                    <li>Нововведения WB/Ozon</li>
+                    <li>Индекс ошибок — есть ли задержки отправок</li>
+                    <li>Отзывы за баллы — следите ли</li>
+                    <li>Акции — делаете ли</li>
+                    <li>Авто одобрение скидки — делаете ли</li>
+                    <li>Общие вопросы</li>
+                    <li>Сводка по продажам за прошлую неделю Ozon/WB + предложение по увеличению</li>
+                    <li>Штрафы за неделю на Ozon и WB (сколько и за что)</li>
+                    <li>Стоимость хранения за неделю + предложения по снижению издержек</li>
+                    <li>Контроль Иноагентов — маркировка во всех местах</li>
+                    <li>Качественные ответы на отзывы (от Константина)</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- 📥 НОВЫЕ ВВОДНЫЕ ОТ КОНСТАНТИНА -->
+        <div class="section">
+            <h2>📥 НОВЫЕ ВВОДНЫЕ ОТ КОНСТАНТИНА</h2>
+            
+            <div class="task-list">
+                <li class="priority-high">
+                    <strong>📚 Инструкция по проверке книг — дополнить:</strong>
+                    <ul>
+                        <li>Желтые страницы</li>
+                        <li>Запах</li>
+                    </ul>
+                </li>
+                <li class="priority-medium">
+                    <strong>💬 Качественные ответы на отзывы WB и Ozon</strong>
+                </li>
+                <li class="priority-low">
+                    <strong>🌐 Уточнить что решили с Интернетом</strong> (напомнить Константину)
+                </li>
+                <li class="priority-low">
+                    <strong>📦 Рассортировать все имеющиеся книги</strong>
+                </li>
+            </div>
+            
+            <div class="idea-card">
+                <h4>💡 ИДЕЯ НА БУДУЩЕЕ (далекие планы):</h4>
+                <p><strong>Свой интернет-магазин и приложение</strong></p>
+                <p>Запомнить, держать в далеких планах. Не приоритет сейчас.</p>
+            </div>
+        </div>
+
+        <!-- 📅 ПЛАН НА 26 ИЮНЯ -->
+        <div class="section">
+            <h2>📅 ПЛАН НА 26 ИЮНЯ (ПЯТНИЦА)</h2>
+            
+            <h3>🔴 ПРИОРИТЕТ 1 — КРИТИЧНО</h3>
+            <ul class="task-list">
+                <li class="priority-high">
+                    <strong>📦 Ульяновск — проверить статус машины</strong>
+                    <ul>
+                        <li>Утром проверить, нашли ли машину</li>
+                        <li>Организовать логистику (забор → оплата при заборе)</li>
+                    </ul>
+                </li>
+                <li class="priority-high">
+                    <strong>🧮 КАЛЬКУЛЯТОР — продумать формулы</strong>
+                    <ul>
+                        <li>Все моменты и формулы</li>
+                        <li>Виды книг (твердый/мягкий переплет), фото образцов</li>
+                        <li>Расчет веса, объема, количества мест</li>
+                        <li>PDF с данными для ТК</li>
+                    </ul>
+                </li>
+                <li class="priority-high">
+                    <strong>📞 Связаться с Александром (@AleksBuild)</strong>
+                    <ul>
+                        <li>Договориться на тестовую партию 100 карточек по 20₽</li>
+                    </ul>
+                </li>
+                <li class="priority-high">
+                    <strong>📞 Связаться с Инной (@luk_nn)</strong>
+                    <ul>
+                        <li>Запросить отчет по 12 пунктам</li>
+                    </ul>
+                </li>
+            </ul>
+            
+            <h3>🟡 ПРИОРИТЕТ 2 — ВАЖНО</h3>
+            <ul class="task-list">
+                <li class="priority-medium">
+                    <strong>🎫 Визитка при упаковке — продумать текст</strong>
+                </li>
+                <li class="priority-medium">
+                    <strong>📞 Провести беседу с Андреем-курьером</strong>
+                    <ul>
+                        <li>График работы, сборка заказов к 19:00</li>
+                    </ul>
+                </li>
+                <li class="priority-medium">
+                    <strong>📊 Получить данные по СДЭК</strong>
+                    <ul>
+                        <li>Есть договор</li>
+                        <li>Посчитать примеры доставок</li>
+                        <li>Выстроить алгоритм выбора ТК (приоритеты)</li>
+                    </ul>
+                </li>
+                <li class="priority-medium">
+                    <strong>📝 Скрипты для разных ситуаций</strong>
+                    <ul>
+                        <li>Для тех, кто продает книги</li>
+                        <li>Для тех, кто отдает бесплатно</li>
+                        <li>Для разных категорий клиентов</li>
+                    </ul>
+                </li>
+                <li class="priority-medium">
+                    <strong>🤖 Продолжить контроль бота Андрея</strong>
+                    <ul>
+                        <li>Тестирование, исправление ошибок</li>
+                    </ul>
+                </li>
+                <li class="priority-medium">
+                    <strong>💬 Разговор с удаленщицами</strong>
+                    <ul>
+                        <li>Поставить минимальную планку: <strong>20-25 карточек в день</strong></li>
+                        <li>Выявить тех, кто работает быстро и хочет больше</li>
+                        <li>Поговорить с отстающими</li>
+                    </ul>
+                </li>
+            </ul>
+            
+            <h3>🟢 ПРИОРИТЕТ 3 — ТЕКУЩИЕ ЗАДАЧИ</h3>
+            <ul class="task-list">
+                <li class="priority-low">
+                    <strong>📚 Рассортировать все имеющиеся книги</strong>
+                </li>
+                <li class="priority-low">
+                    <strong>🌐 Уточнить у Константина про Интернет</strong>
+                </li>
+                <li class="priority-low">
+                    <strong>🔍 Поиск книг в других городах + алгоритм логистики</strong>
+                </li>
+                <li class="priority-low">
+                    <strong>📋 Подготовка к 1 июля:</strong>
+                    <ul>
+                        <li>Решить вопрос с заменой Юрия</li>
+                        <li>Перераспределить задачи Маши на время отпуска</li>
+                        <li>Отключить Авито и симку Ярославль (после привоза от Никиты)</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <!-- 💡 ИДЕИ И ПРЕДЛОЖЕНИЯ -->
+        <div class="section">
+            <h2>💡 ИДЕИ И ПРЕДЛОЖЕНИЯ</h2>
+            
+            <div class="idea-card">
+                <h4>🧮 КАЛЬКУЛЯТОР ДЛЯ ТК (согласовано)</h4>
+                <p><strong>Статус:</strong> Завтра продумать формулы</p>
+                <p><strong>Функционал:</strong></p>
+                <ul>
+                    <li>Ввод: вид книги (твердый/мягкий), количество</li>
+                    <li>База: вес, размеры по категориям</li>
+                    <li>Расчет: общий вес (кг), объем (м³), количество мест</li>
+                    <li>Вывод: PDF с данными для ТК</li>
+                    <li>Второй калькулятор: цена доставки + цена книг = себестоимость</li>
+                </ul>
+            </div>
+            
+            <div class="idea-card">
+                <h4>🎫 ВИЗИТКА ПРИ УПАКОВКЕ (согласовано)</h4>
+                <p><strong>Статус:</strong> Завтра продумать текст</p>
+                <p><strong>Идея:</strong> "Даем книгам вторую жизнь! Сдайте нам книги — получите скидку 10% на будущие покупки"</p>
+            </div>
+            
+            <div class="idea-card">
+                <h4>📝 ЛИСТОВКИ (на будущее)</h4>
+                <p><strong>Статус:</strong> Пока отменили, но в будущем пересмотреть текст</p>
+            </div>
+            
+            <div class="idea-card">
+                <h4>🌐 СВОЙ ИНТЕРНЕТ-МАГАЗИН И ПРИЛОЖЕНИЕ</h4>
+                <p><strong>Статус:</strong> Далекие планы (идея Константина)</p>
+                <p>Запомнить, не приоритет сейчас.</p>
+            </div>
+        </div>
+
+        <!-- 👥 СОТРУДНИКИ — ИЗМЕНЕНИЯ -->
+        <div class="section">
+            <h2>👥 СОТРУДНИКИ — ИЗМЕНЕНИЯ</h2>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Сотрудник</th>
+                        <th>Изменения</th>
+                        <th>Дата</th>
+                        <th>Действия</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Юрий</strong></td>
+                        <td>Уходит</td>
+                        <td>с 1 июля</td>
+                        <td>⚠️ Решить кто будет возить (в т.ч. по выходным)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Маша</strong></td>
+                        <td>Отпуск 2 недели</td>
+                        <td>с 1 июля</td>
+                        <td>⚠️ Перераспределить задачи</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Ангелина</strong></td>
+                        <td>Временно на фото к Маше</td>
+                        <td>сейчас</td>
+                        <td>Помощь Маше перед отпуском</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Ксения</strong></td>
+                        <td>Новые задачи</td>
+                        <td>сейчас</td>
+                        <td>Поиск книг в других городах + логистика + текущие задачи</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Андрей (курьер)</strong></td>
+                        <td>Беседа</td>
+                        <td>завтра</td>
+                        <td>Ксения написала, ждем ответа</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 📞 КОНТАКТЫ -->
+        <div class="section">
+            <h2>📞 ВАЖНЫЕ КОНТАКТЫ</h2>
+            
+            <div class="contact-box">
+                <h4>📦 ЧЕЛЯБИНСК:</h4>
+                <ul>
+                    <li><strong>Водитель:</strong> 8-981-448-66-02</li>
+                    <li><strong>Продавец Мария:</strong> получила 25 000₽</li>
+                    <li><strong>Статус:</strong> ждем груз</li>
+                </ul>
+            </div>
+            
+            <div class="contact-box">
+                <h4>📦 УЛЬЯНОВСК:</h4>
+                <ul>
+                    <li><strong>Продавец Алексей:</strong> 8-908-477-64-00 (перевод на карту)</li>
+                    <li><strong>Заказ:</strong> 522 экз., 30 520₽ (НЕ оплачен, оплата при заборе)</li>
+                    <li><strong>Адрес:</strong> г. Ульяновск, ул. Локомотивная, 9</li>
+                    <li><strong>Параметры:</strong> 12 коробок (30×35×40), 130-140 кг</li>
+                </ul>
+            </div>
+            
+            <div class="contact-box">
+                <h4>🤖 БОТЫ:</h4>
+                <ul>
+                    <li><strong>Андрей (текущий бот):</strong> в Telegram-беседе с Денисом</li>
+                    <li><strong>Александр (Москва, карточки 20₽):</strong> @AleksBuild</li>
+                </ul>
+            </div>
+            
+            <div class="contact-box">
+                <h4>📊 ОТЧЕТЫ:</h4>
+                <ul>
+                    <li><strong>Инна:</strong> @luk_nn (12 пунктов отчета)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 📊 ЦИФРЫ ЗА ДЕНЬ -->
+        <div class="section">
+            <h2>📊 ЦИФРЫ ЗА 25 ИЮНЯ</h2>
+            
+            <table>
+                <tr>
+                    <th>Показатель</th>
+                    <th>Значение</th>
+                </tr>
+                <tr>
+                    <td>Челябинск — отгружено</td>
+                    <td>~600 книг, 25 000₽</td>
+                </tr>
+                <tr>
+                    <td>Ульяновск — заказано</td>
+                    <td>522 книги, 30 520₽ (в процессе логистики)</td>
+                </tr>
+                <tr>
+                    <td>Бот Андрея</td>
+                    <td>Стал работать лучше, часть ошибок исправлена</td>
+                </tr>
+                <tr>
+                    <td>Согласовано идей</td>
+                    <td>2 (калькулятор, визитка)</td>
+                </tr>
+                <tr>
+                    <td>Новых вводных от руководства</td>
+                    <td>15+ пунктов</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- ⚠️ НА ПОМНИНЕНИЕ -->
+        <div class="section">
+            <h2>⚠️ НЕ ЗАБЫТЬ</h2>
+            
+            <div class="decision-needed">
+                <h4>🔴 СРОЧНО (до 1 июля):</h4>
+                <ol>
+                    <li>Решить кто будет возить книги вместо Юрия</li>
+                    <li>Перераспределить задачи Маши на время отпуска</li>
+                    <li>Отключить Авито и симку Ярославль (после привоза от Никиты)</li>
+                    <li>Узнать про возвраты (куда приходят, где забирать)</li>
+                </ol>
+            </div>
+            
+            <div class="decision-needed">
+                <h4>🟡 НА ЭТОЙ НЕДЕЛЕ:</h4>
+                <ol>
+                    <li>Сделать калькулятор для ТК</li>
+                    <li>Продумать текст визитки</li>
+                    <li>Составить скрипты для разных ситуаций</li>
+                    <li>Получить данные по СДЭК, выстроить алгоритм выбора ТК</li>
+                    <li>Провести беседу с удаленщицами (планка 20-25 карточек/день)</li>
+                    <li>Связаться с Александром (@AleksBuild) — тестовая партия 100 карточек</li>
+                    <li>Связаться с Инной (@luk_nn) — запросить отчет</li>
+                    <li>Провести беседу с Андреем-курьером</li>
+                </ol>
+            </div>
+            
+            <div class="decision-needed">
+                <h4>🟢 НА БУДУЩУЮ НЕДЕЛЮ:</h4>
+                <ol>
+                    <li>Изучить тарифы АТИ.су</li>
+                    <li>Продолжить поиск книг в других городах</li>
+                    <li>Выстроить алгоритм логистики по другим городам</li>
+                    <li>Рассортировать все имеющиеся книги</li>
+                    <li>Уточнить у Константина про Интернет</li>
+                </ol>
+            </div>
+        </div>
+
+        <footer>
+            <p><strong>Дашборд управляющего "Книголюб" | Максим Симанов | 2026</strong></p>
+            <p>Обновлено: 25 июня 2026, 23:50</p>
+            <p><a href="https://studio817.ru/banan" style="color:#38bdf8;">Разработка приложений и создание сайтов — Студия 817 Вологда</a></p>
+        </footer>
+    </div>
+</body>
+</html>
