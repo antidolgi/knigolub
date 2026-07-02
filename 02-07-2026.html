@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Отчёт управляющего — Книголюб | 2 июля 2026</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f7fa;
+        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        header h1 { font-size: 2.5em; margin-bottom: 10px; }
+        .date-badge {
+            background: rgba(255,255,255,0.2);
+            padding: 10px 20px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        .section {
+            background: white;
+            padding: 30px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .section h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+        .section h3 { color: #764ba2; margin: 20px 0 10px 0; }
+        .status {
+            padding: 5px 15px;
+            border-radius: 5px;
+            font-size: 0.9em;
+            font-weight: 600;
+            display: inline-block;
+        }
+        .status-done { background: #d4edda; color: #155724; }
+        .status-progress { background: #fff3cd; color: #856404; }
+        .status-planned { background: #cce5ff; color: #004085; }
+        .status-decision { background: #f8d7da; color: #721c24; }
+        .task-list { list-style: none; }
+        .task-list li {
+            padding: 12px;
+            margin: 8px 0;
+            background: #f5f7fa;
+            border-left: 4px solid #667eea;
+            border-radius: 5px;
+        }
+        .priority-high { border-left-color: #dc3545; }
+        .priority-medium { border-left-color: #ffc107; }
+        .priority-low { border-left-color: #28a745; }
+        .calc-box {
+            background: #e8f4f8;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border: 2px solid #17a2b8;
+        }
+        .calc-box h4 { color: #17a2b8; margin-bottom: 15px; }
+        .alert-box {
+            background: #f8d7da;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #dc3545;
+        }
+        .alert-box h4 { color: #721c24; margin-bottom: 10px; }
+        .success-box {
+            background: #d4edda;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #28a745;
+        }
+        .success-box h4 { color: #155724; margin-bottom: 10px; }
+        .contact-box {
+            background: #d1ecf1;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            border-left: 4px solid #17a2b8;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background: #667eea;
+            color: white;
+            font-weight: 600;
+        }
+        tr:hover { background: #f5f7fa; }
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .nav-btn {
+            padding: 10px 20px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+        .nav-btn:hover { background: #764ba2; }
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            margin-top: 30px;
+        }
+        @media (max-width: 768px) {
+            header h1 { font-size: 1.8em; }
+            .container { padding: 10px; }
+            .section { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📊 Отчёт управляющего</h1>
+            <p>Книголюб — Вологда</p>
+            <div class="date-badge">
+                <strong>2 июля 2026 (Четверг)</strong>
+            </div>
+            <p style="margin-top: 10px; font-size: 1em;">Максим Симанов | Управляющий</p>
+        </header>
+        
+        <div class="nav-buttons">
+            <a href="index.html" class="nav-btn">📅 23 июня</a>
+            <a href="24-06-2026.html" class="nav-btn">📅 24 июня</a>
+            <a href="25-06-2026.html" class="nav-btn">📅 25 июня</a>
+            <a href="26-06-2026.html" class="nav-btn">📅 26 июня</a>
+            <a href="29-06-2026.html" class="nav-btn">📅 29 июня</a>
+            <a href="#" class="nav-btn" style="background: #764ba2;">📅 2 июля (сегодня)</a>
+        </div>
+
+        <!-- ✅ СДЕЛАНО -->
+        <div class="section">
+            <h2>✅ СДЕЛАНО (29 июня - 2 июля)</h2>
+            
+            <h3>📦 Логистика и закупки</h3>
+            <ul class="task-list">
+                <li class="priority-high">
+                    <strong>Челябинск — ГОТОВО ✅</strong>
+                    <ul>
+                        <li>595 книг получены (560 хорошие, 35 мука)</li>
+                        <li>Оплачено: 25 000₽ + доставка ~10 000₽</li>
+                        <li>Сортировка завершена, все отправлено</li>
+                    </ul>
+                </li>
+                <li class="priority-high">
+                    <strong>Ульяновск — В РАБОТЕ 🔄</strong>
+                    <ul>
+                        <li>522 книги, 30 520₽ (оплачено)</li>
+                        <li>Доставка: 8 000₽ (согласовано)</li>
+                        <li>Машина выехала 30 июня</li>
+                        <li>Прибытие в Вологду: 1-2 июля</li>
+                    </ul>
+                </li>
+                <li class="priority-medium">
+                    <strong>Ярославль — поиск машины 🔄</strong>
+                    <ul>
+                        <li>60 сумок книг (~1 800 книг)</li>
+                        <li>Адрес: Радищева 18 к2</li>
+                        <li>Водитель за 5 000₽ + нужны грузчики</li>
+                        <li>Татьяна (диспетчер): 89084736121</li>
+                    </ul>
+                </li>
+            </ul>
+            
+            <h3>🤖 Бот и автоматизация</h3>
+            <ul class="task-list">
+                <li class="priority-high">
+                    <strong>Бот Андрея — работает отлично ✅</strong>
+                    <ul>
+                        <li>Проверка пройдена успешно</li>
+                        <li>Мария с 6 июля полностью на боте</li>
+                        <li>Диана на удаленщицах</li>
+                        <li>Осталось: идеальная выгрузка на ВБ, формула расчета цены на Ozon/WB</li>
+                    </ul>
+                </li>
+                <li class="priority-medium">
+                    <strong>Александр (бот Москва) — ожидание</strong>
+                    <ul>
+                        <li>Контакт: @AleksBuild, тел. 89681803979</li>
+                        <li>С момента первого контакта ничего не изменилось</li>
+                        <li>Решение: тест на 10 карточек для проверки</li>
+                    </ul>
+                </li>
+            </ul>
+            
+            <h3>👥 Сотрудники</h3>
+            <ul class="task-list">
+                <li class="priority-high">
+                    <strong>Самозанятость оформлена ✅</strong>
+                    <ul>
+                        <li>Все сотрудники оформлены, кроме Маши (в отпуске)</li>
+                        <li>Маша выйдет 13 июля и оформит</li>
+                    </ul>
+                </li>
+                <li class="priority-high">
+                    <strong>Удаленщицы — работа проведена ✅</strong>
+                    <ul>
+                        <li>Оставлены 5 человек: Амбросова, Алена Трофимова, Носкова, Юлия Русских, Соболева Светлана</li>
+                        <li>Лимит: 20-25 карточек в день</li>
+                        <li>Тексты написаны тем, кто остается</li>
+                        <li>Осталось: написать тем, кто уходит</li>
+                    </ul>
+                </li>
+                <li class="priority-medium">
+                    <strong>Летучка с Константином проведена ✅</strong>
+                </li>
+            </ul>
+            
+            <h3>🚚 Курьеры</h3>
+            <ul class="task-list">
+                <li class="priority-high">
+                    <strong>Камил — согласован ✅</strong>
+                    <ul>
+                        <li>+7 (900) 559-00-70</li>
+                        <li>800₽/выезд на Ozon/WB</li>
+                        <li>1 июля в 17:00 — первый выезд</li>
+                        <li>В некоторые дни может быть позже 17:00 — продумать варианты</li>
+                    </ul>
+                </li>
+                <li class="priority-medium">
+                    <strong>Илья — ожидание 🔄</strong>
+                    <ul>
+                        <li>+7 (921) 716-11-42</li>
+                        <li>Забор книг по адресам + возвраты</li>
+                        <li>Еще не созванивались</li>
+                    </ul>
+                </li>
+                <li class="priority-medium">
+                    <strong>Евгений — с 15 июля</strong>
+                    <ul>
+                        <li>Готов на вечерние отвозы (будни)</li>
+                        <li>Надо согласовать с 15 июля</li>
+                        <li>До этого времени ищем другого водителя</li>
+                    </ul>
+                </li>
+            </ul>
+            
+            <h3>🏢 Аренда и инфраструктура</h3>
+            <ul class="task-list">
+                <li class="priority-high">
+                    <strong>База "Нет" — расторжение 🔄</strong>
+                    <ul>
+                        <li>Документы получены, переданы Денису</li>
+                        <li>Подписание: 13-14 июля (согласовано с провайдером)</li>
+                        <li>Адреса: Машиностроительная 19, Новгородская 7</li>
+                        <li>Расторжение с 1 августа</li>
+                    </ul>
+                </li>
+                <li class="priority-medium">
+                    <strong>Клик (интернет) — ожидание 🔄</strong>
+                    <ul>
+                        <li>Пока не приехал, не подключил</li>
+                        <li>Оплата с 1 августа</li>
+                    </ul>
+                </li>
+                <li class="priority-medium">
+                    <strong>Ключи и безопасность</strong>
+                    <ul>
+                        <li>Ключи в сейфе</li>
+                        <li>Сменить код на сейфе</li>
+                        <li>Посчитать стоимость домофона с видео + камера на вход</li>
+                    </ul>
+                </li>
+            </ul>
+            
+            <h3>📊 Мониторинг и отчеты</h3>
+            <ul class="task-list">
+                <li class="priority-high">
+                    <strong>Мониторинг Ozon/WB — ежедневно ✅</strong>
+                    <ul>
+                        <li>Проверка продаж</li>
+                        <li>Если просадка → писать Инне по скидкам</li>
+                        <li>Ozon: до 40%, WB: до 73%</li>
+                    </ul>
+                </li>
+                <li class="priority-medium">
+                    <strong>Отчет Инны получен ✅</strong>
+                    <ul>
+                        <li>12 пунктов отчета</li>
+                        <li>Скидки сообщены</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <!-- 🔴 ЗАДАЧИ НА СЕГОДНЯ (2 июля) -->
+        <div class="section">
+            <h2>🔴 ЗАДАЧИ НА СЕГОДНЯ (2 июля)</h2>
+            
+            <h3>Критично</h3>
+            <ul class="task-list">
+                <li class="priority-high">
+                    <strong>📞 Яндекс.Маркет — Лейсан</strong>
+                    <ul>
+                        <li>+7 (965) 302-30-19</li>
+                        <li>Сказать: Перевалкин Денис Евгеньевич</li>
+                        <li>Узнать условия, создать кабинет</li>
+                    </ul>
+                </li>
+                <li class="priority-high">
+                    <strong>📊 Мониторинг Ozon/WB</strong>
+                    <ul>
+                        <li>Проверить продажи</li>
+                        <li>Если просадка — писать Инне (@luk_nn) по скидкам</li>
+                        <li>СДЕЛАТЬ СЕГОДНЯ!</li>
+                    </ul>
+                </li>
+                <li class="priority-high">
+                    <strong>👥 Удаленщицы — написать тем, кто уходит</strong>
+                    <ul>
+                        <li>Мягко: "Вынуждены приостановить работу, так как бот запущен"</li>
+                        <li>"Сейчас разгружаем склад, пока книги скидываться не будут"</li>
+                    </ul>
+                </li>
+                <li class="priority-high">
+                    <strong>📦 Встретить груз с Ульяновска</strong>
+                    <ul>
+                        <li>Машина должна быть сегодня</li>
+                        <li>522 книги, 12 коробок</li>
+                        <li>Проверить качество, принять</li>
+                    </ul>
+                </li>
+            </ul>
+            
+            <h3>Важно</h3>
+            <ul class="task-list">
+                <li class="priority-medium">
+                    <strong>🤖 Бот Андрея — доработка</strong>
+                    <ul>
+                        <li>Идеальная выгрузка на ВБ</li>
+                        <li>Формула расчета цены на Ozon/WB</li>
+                    </ul>
+                </li>
+                <li class="priority-medium">
+                    <strong>📞 Связаться с Ильей</strong>
+                    <ul>
+                        <li>+7 (921) 716-11-42</li>
+                        <li>Координировать забор книг по адресам</li>
+                    </ul>
+                </li>
+                <li class="priority-medium">
+                    <strong>🤖 Александр (бот) — тест</strong>
+                    <ul>
+                        <li>Написать в ТГ @AleksBuild</li>
+                        <li>Если не отвечает — позвонить 89681803979</li>
+                        <li>Решить: тест на 10 карточек или нет</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <!-- 📅 ПЛАН НА БЛИЖАЙШИЕ ДНИ -->
+        <div class="section">
+            <h2>📅 ПЛАН НА БЛИЖАЙШИЕ ДНИ (до 8 июля)</h2>
+            
+            <h3>3-7 июля (перенесено с предыдущих дней)</h3>
+            <ul class="task-list">
+                <li class="priority-high">
+                    <strong>🧮 Калькулятор для ТК</strong>
+                    <ul>
+                        <li>Продумать формулы</li>
+                        <li>Виды книг (твердый/мягкий переплет)</li>
+                        <li>Расчет: вес (кг), объем (м³), количество мест</li>
+                        <li>Вывод: PDF с данными для ТК</li>
+                    </ul>
+                </li>
+                <li class="priority-high">
+                    <strong>🎫 Текст визитки</strong>
+                    <ul>
+                        <li>Продумать текст</li>
+                        <li>Идея: "Даем книгам вторую жизнь! Сдайте нам книги — получите скидку 10% на будущие покупки"</li>
+                        <li>Согласовать с руководством</li>
+                    </ul>
+                </li>
+                <li class="priority-medium">
+                    <strong>📝 Скрипты для разных ситуаций</strong>
+                    <ul>
+                        <li>Для тех, кто продает книги</li>
+                        <li>Для тех, кто отдает бесплатно</li>
+                        <li>Для разных категорий клиентов</li>
+                    </ul>
+                </li>
+                <li class="priority-medium">
+                    <strong>📦 СДЭК — алгоритм</strong>
+                    <ul>
+                        <li>Получить данные по договору</li>
+                        <li>Посчитать примеры доставок</li>
+                        <li>Выстроить приоритеты выбора ТК</li>
+                    </ul>
+                </li>
+                <li class="priority-medium">
+                    <strong>📚 АТИ.су — изучить тарифы</strong>
+                </li>
+                <li class="priority-medium">
+                    <strong>📞 Обзвон поставщиков</strong>
+                    <ul>
+                        <li>Издательства (остатки, неликвид)</li>
+                        <li>Сортировочные склады (Москва)</li>
+                        <li>Ломбарды</li>
+                        <li>Риэлторы (переезды)</li>
+                        <li>Клининговые компании</li>
+                    </ul>
+                </li>
+                <li class="priority-medium">
+                    <strong>🤖 Поговорить с Андреем (разработчик бота)</strong>
+                    <ul>
+                        <li>Чтобы сопровождал бота на переходный период</li>
+                    </ul>
+                </li>
+                <li class="priority-medium">
+                    <strong>🪑 Заказать стол</strong>
+                    <ul>
+                        <li>Сделать рабочее место</li>
+                    </ul>
+                </li>
+            </ul>
+            
+            <h3>График работы до 18-19:00</h3>
+            <ul class="task-list">
+                <li class="priority-medium">
+                    <strong>Вариант 1: Попробовать график по очереди</strong>
+                    <ul>
+                        <li>После отпусков</li>
+                        <li>Кто остается до 18-19:00</li>
+                    </ul>
+                </li>
+                <li class="priority-high">
+                    <strong>Вариант 2 (лучше): Найти сотрудника на сборку заказов</strong>
+                    <ul>
+                        <li>Каждый день или 2/2</li>
+                        <li>С 14:00 до 18-19:00</li>
+                        <li>Тогда вопрос с Камилом решится</li>
+                        <li>Создать вакансию</li>
+                    </ul>
+                </li>
+            </ul>
+            
+            <h3>13-14 июля</h3>
+            <ul class="task-list">
+                <li class="priority-high">
+                    <strong>📄 Подписание расторжения с Базой "Нет"</strong>
+                </li>
+                <li class="priority-high">
+                    <strong>👩‍💼 Маша выходит из отпуска</strong>
+                    <ul>
+                        <li>Оформить самозанятость</li>
+                        <li>Перераспределить задачи</li>
+                    </ul>
+                </li>
+            </ul>
+            
+            <h3>15 июля</h3>
+            <ul class="task-list">
+                <li class="priority-medium">
+                    <strong>🚚 Евгений начинает вечерние отвозы (будни)</strong>
+                    <ul>
+                        <li>Согласовать график</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <!-- 💡 ИДЕИ И ПРЕДЛОЖЕНИЯ -->
+        <div class="section">
+            <h2>💡 ИДЕИ И ПРЕДЛОЖЕНИЯ</h2>
+            
+            <div class="calc-box">
+                <h4>📦 Продажа неликвида</h4>
+                <p>Рассмотреть варианты продажи плохих книг (не в макулатуру!): букинисты, оптовики, другие магазины.</p>
+            </div>
+            
+            <div class="calc-box">
+                <h4>🏪 Открытие ПВЗ Ozon/WB/Яндекс.Маркет на Машиностроительной 19</h4>
+                <p><strong>Плюсы:</strong> экономия на курьерах, прибыль по субсидии, отгрузка прямо с ПВЗ.</p>
+                <p><strong>Нужно подготовить:</strong> требования каждого ПВЗ, расчет затрат на ремонт по брендбуку, полный отчет.</p>
+            </div>
+            
+            <div class="calc-box">
+                <h4>👷 Поиск сотрудника на сборку заказов</h4>
+                <p>Формат: 2/2 или каждый день с 14:00 до 18-19 (пол дня/почасовая).</p>
+            </div>
+            
+            <div class="calc-box">
+                <h4>📚 Сборники для продажи</h4>
+                <p>Составные комплекты из книг, которые сложно продаются: самоучитель + 2 книги на английском, сборники по фантастике и т.д.</p>
+            </div>
+            
+            <div class="calc-box">
+                <h4>💊 Реклама в аптеках по сбору книг</h4>
+                <p>Разместить объявления в аптеках о сборе книг. Есть контакты некоторых аптек, кто согласится.</p>
+            </div>
+            
+            <div class="calc-box">
+                <h4>📱 Реклама через блогеров</h4>
+                <p>Коллаборация с местными блогерами. Социальный посыл: "Продаем на Ozon, но часть книг отдаем в библиотеки/школы".</p>
+            </div>
+            
+            <div class="calc-box">
+                <h4>🔐 Безопасность — домофон с видео + камера</h4>
+                <p>Посчитать стоимость установки домофона с видеодомофоном и камеры на вход.</p>
+            </div>
+        </div>
+
+        <!-- 📞 КОНТАКТЫ -->
+        <div class="section">
+            <h2>📞 ВАЖНЫЕ КОНТАКТЫ</h2>
+            
+            <div class="contact-box">
+                <h4>🚚 Курьеры и логистика:</h4>
+                <ul>
+                    <li><strong>Камил:</strong> +7 (900) 559-00-70 (800 ₽/выезд, Ozon/WB)</li>
+                    <li><strong>Илья:</strong> +7 (921) 716-11-42 (забор + возвраты)</li>
+                    <li><strong>Татьяна (диспетчер):</strong> 89084736121 (ТГ, поиск машин)</li>
+                    <li><strong>Ульяновск (Алексей):</strong> 8-908-477-64-00</li>
+                </ul>
+            </div>
+            
+            <div class="contact-box">
+                <h4>🤖 Боты:</h4>
+                <ul>
+                    <li><strong>Андрей (текущий):</strong> в Telegram-беседе с Денисом</li>
+                    <li><strong>Александр (Москва, 20 ₽/карточка):</strong> @AleksBuild, тел. 89681803979</li>
+                </ul>
+            </div>
+            
+            <div class="contact-box">
+                <h4>📊 Отчеты:</h4>
+                <ul>
+                    <li><strong>Инна:</strong> @luk_nn (12 пунктов отчета)</li>
+                </ul>
+            </div>
+            
+            <div class="contact-box">
+                <h4>🌐 Яндекс.Маркет:</h4>
+                <ul>
+                    <li><strong>Лейсан:</strong> +7 (965) 302-30-19</li>
+                    <li>Сказать: Перевалкин Денис Евгеньевич</li>
+                </ul>
+            </div>
+            
+            <div class="contact-box">
+                <h4>🏢 Аренда (расторжение):</h4>
+                <ul>
+                    <li><strong>База "Нет":</strong> подписание 13-14 июля</li>
+                    <li>Адреса: Машиностроительная 19, Новгородская 7</li>
+                    <li>ИП: Перевалкин Денис Евгеньевич</li>
+                    <li>Расторжение с 1 августа</li>
+                </ul>
+            </div>
+            
+            <div class="contact-box">
+                <h4>🌐 Интернет:</h4>
+                <ul>
+                    <li><strong>Клик:</strong> 89217144333 (ожидание подключения, оплата с 1 августа)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 💰 БЮДЖЕТ -->
+        <div class="section">
+            <h2>💰 БЮДЖЕТ ИЮЛЯ</h2>
+            
+            <table>
+                <tr>
+                    <th>Статья</th>
+                    <th>Сумма</th>
+                    <th>Статус</th>
+                </tr>
+                <tr>
+                    <td>Покупка книг (общий лимит)</td>
+                    <td>100 000 - 150 000 ₽</td>
+                    <td>На месяц</td>
+                </tr>
+                <tr>
+                    <td>Поиск книг (другие города, с доставкой)</td>
+                    <td>50 000 ₽</td>
+                    <td>Возможно больше</td>
+                </tr>
+                <tr>
+                    <td>Челябинск (уже оплачено)</td>
+                    <td>35 000 ₽</td>
+                    <td>✅ Получено</td>
+                </tr>
+                <tr>
+                    <td>Ульяновск</td>
+                    <td>30 520 ₽ + 8 000 ₽ доставка</td>
+                    <td>🔄 В пути</td>
+                </tr>
+                <tr>
+                    <td>Курьер Камил</td>
+                    <td>800 ₽/выезд</td>
+                    <td>✅ Согласовано</td>
+                </tr>
+                <tr>
+                    <td>Бот Александра (тест)</td>
+                    <td>200-2 000 ₽</td>
+                    <td>🔄 Ожидание</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- 📋 ДОКУМЕНТЫ -->
+        <div class="section">
+            <h2>📋 ДОКУМЕНТЫ</h2>
+            
+            <ul class="task-list">
+                <li class="priority-high">
+                    <strong>Договор с самозанятыми сотрудниками</strong>
+                    <ul>
+                        <li>Составить договор с ИП</li>
+                        <li>Для всех сотрудников на самозанятости</li>
+                    </ul>
+                </li>
+                <li class="priority-high">
+                    <strong>Договор ГПХ со мной</strong>
+                    <ul>
+                        <li>Составить договор</li>
+                        <li>У меня нет самозанятости</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <footer>
+            <p><strong>Отчёт управляющего "Книголюб" | Максим Симанов | 2026</strong></p>
+            <p>Обновлено: 2 июля 2026</p>
+            <p><a href="https://studio817.ru/banan" style="color:#38bdf8;">Разработка приложений и создание сайтов — Студия 817 Вологда</a></p>
+        </footer>
+    </div>
+</body>
+</html>
